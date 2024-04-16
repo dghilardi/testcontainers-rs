@@ -178,6 +178,7 @@ pub struct RunnableImage<I: Image> {
     volumes: BTreeMap<String, String>,
     ports: Option<Vec<Port>>,
     privileged: bool,
+    host_user_ns: bool,
     shm_size: Option<u64>,
 }
 
@@ -216,6 +217,10 @@ impl<I: Image> RunnableImage<I> {
 
     pub fn privileged(&self) -> bool {
         self.privileged
+    }
+
+    pub fn host_user_ns(&self) -> bool {
+        self.host_user_ns
     }
 
     /// Shared memory size in bytes
@@ -304,6 +309,10 @@ impl<I: Image> RunnableImage<I> {
         Self { privileged, ..self }
     }
 
+    pub fn with_host_user_ns(self, host_user_ns: bool) -> Self {
+        Self { host_user_ns, ..self }
+    }
+
     pub fn with_shm_size(self, bytes: u64) -> Self {
         Self {
             shm_size: Some(bytes),
@@ -335,6 +344,7 @@ impl<I: Image> From<(I, I::Args)> for RunnableImage<I> {
             volumes: BTreeMap::default(),
             ports: None,
             privileged: false,
+            host_user_ns: false,
             shm_size: None,
         }
     }

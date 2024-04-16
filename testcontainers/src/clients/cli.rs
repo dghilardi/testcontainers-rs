@@ -159,6 +159,10 @@ impl Client {
             command.arg("--privileged");
         }
 
+        if image.host_user_ns() {
+            command.arg("--userns=host");
+        }
+
         if let Some(bytes) = image.shm_size() {
             command.arg(format!("--shm-size={bytes}"));
         }
