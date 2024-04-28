@@ -62,6 +62,9 @@ where
             host_config: Some(HostConfig {
                 privileged: Some(runnable_image.privileged()),
                 extra_hosts: Some(extra_hosts),
+                cgroupns_mode: runnable_image
+                    .cgroupns_mode()
+                    .map(|mode| mode.into()),
                 ..Default::default()
             }),
             ..Default::default()

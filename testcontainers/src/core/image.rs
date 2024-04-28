@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 
 pub use exec_command::ExecCommand;
-pub use runnable_image::{Host, PortMapping, RunnableImage};
+pub use runnable_image::{Host, PortMapping, RunnableImage, CgroupnsMode};
 pub use wait_for::WaitFor;
 
 use super::ports::Ports;
